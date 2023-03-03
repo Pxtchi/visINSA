@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\EtapeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EtapeRepository::class)]
@@ -27,6 +28,16 @@ class Etape
 
     #[ORM\Column]
     private ?int $etatEtape = null;
+    private $aventure;
+    private $questions;
+    private $films;
+    private $tentatives;
+
+    public function __construct(){
+        $this->questions = new ArrayCollection();
+        $this->films = new ArrayCollection();
+        $this->tentatives = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

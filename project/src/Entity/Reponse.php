@@ -15,6 +15,7 @@ class Reponse
 
     #[ORM\Column(length: 255)]
     private ?string $laReponse = null;
+    private $question;
 
     public function getId(): ?int
     {
