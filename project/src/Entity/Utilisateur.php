@@ -27,6 +27,7 @@ class Utilisateur
 
     #[ORM\Column]
     private ?bool $isVerified = null;
+    private $equipe;
 
     public function getId(): ?int
     {

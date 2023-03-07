@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\QuestionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -18,6 +19,11 @@ class Question
 
     #[ORM\Column(length: 255)]
     private ?string $pointsQuestion = null;
+    private $reponses;
+    private $etape;
+    public function __construct() {
+        $this->reponses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

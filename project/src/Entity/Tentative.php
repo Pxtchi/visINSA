@@ -12,6 +12,8 @@ class Tentative
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+    private $equipe;
+    private $etape;
 
     public function getId(): ?int
     {

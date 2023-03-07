@@ -15,6 +15,7 @@ class Film
 
     #[ORM\Column(length: 255)]
     private ?string $nomFilm = null;
+    private $etape;
 
     public function getId(): ?int
     {
