@@ -2,55 +2,68 @@
 
 namespace App\Entity;
 
-use App\Repository\QuestionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: QuestionRepository::class)]
+/**
+ * Question
+ *
+ * @ORM\Table(name="QUESTION")
+ * @ORM\Entity
+ */
 class Question
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     
+     */
+    private $idquestion;
 
-    #[ORM\Column(length: 255)]
-    private ?string $texteQuestion = null;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="texteQuestion", type="string", length=100, nullable=true, unique=true)
+     */
+    private $textequestion;
 
-    #[ORM\Column(length: 255)]
-    private ?string $pointsQuestion = null;
-    private $reponses;
-    private $etape;
-    public function __construct() {
-        $this->reponses = new ArrayCollection();
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="pointsQuestion", type="integer", nullable=true)
+     */
+    private $pointsquestion;
+
+    public function getIdquestion(): ?int
+    {
+        return $this->idquestion;
     }
 
-    public function getId(): ?int
+    /**
+     * @param mixed $idquestion
+     */
+    public function setIdquestion(?int $idquestion)
     {
-        return $this->id;
+        $this->idquestion = $idquestion;
     }
 
-    public function getTexteQuestion(): ?string
+    public function getTextequestion(): ?string
     {
-        return $this->texteQuestion;
+        return $this->textequestion;
     }
 
-    public function setTexteQuestion(string $texteQuestion): self
+    public function setTextequestion(?string $textequestion)
     {
-        $this->texteQuestion = $texteQuestion;
-
-        return $this;
+        $this->textequestion = $textequestion;
     }
 
-    public function getPointsQuestion(): ?string
+    public function getPointsquestion(): ?int
     {
-        return $this->pointsQuestion;
+        return $this->pointsquestion;
     }
 
-    public function setPointsQuestion(string $pointsQuestion): self
+    public function setPointsquestion(?int $pointsquestion)
     {
-        $this->pointsQuestion = $pointsQuestion;
-
-        return $this;
+        $this->pointsquestion = $pointsquestion;
     }
 }

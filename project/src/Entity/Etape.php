@@ -2,105 +2,174 @@
 
 namespace App\Entity;
 
-use App\Repository\EtapeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
-#[ORM\Entity(repositoryClass: EtapeRepository::class)]
+/**
+ * Etape
+ *
+ * @ORM\Table(name="ETAPE")
+ * @ORM\Entity(repositoryClass=App\Repository\EtapesRepository::class)
+ */
 class Etape
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="idEtape", type="integer", nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idetape;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nomEtape = null;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nomEtape", type="string", length=42, nullable=true)
+     */
+    private $nometape;
 
-    #[ORM\Column]
-    private ?int $posXQRCode = null;
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="posXQRCode", type="float", length=42, nullable=true)
+     */
+    private $posxqrcode;
 
-    #[ORM\Column]
-    private ?int $posYQRCode = null;
+    /**
+     * @var float|null
+     *
+     * @ORM\Column(name="posYQRCode", type="float", length=42, nullable=true)
+     */
+    private $posyqrcode;
 
-    #[ORM\Column]
-    private ?int $placementAventure = null;
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="placementAventure", type="integer", length=42, nullable=true)
+     */
+    private $placementaventure;
 
-    #[ORM\Column]
-    private ?int $etatEtape = null;
-    private $aventure;
-    private $questions;
-    private $films;
-    private $tentatives;
+    /**
+     * @var boolean|false
+     *
+     * @ORM\Column(name="etatEtape", type="boolean", length=42, nullable=false)
+     */
+    private $etatetape;
 
-    public function __construct(){
-        $this->questions = new ArrayCollection();
-        $this->films = new ArrayCollection();
-        $this->tentatives = new ArrayCollection();
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="idFilm", type="integer", nullable=true)
+     */
+    private $idfilm;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="idQuestion", type="integer", nullable=true)
+     */
+    private $idquestion;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nomAventure", type="string", length=42, nullable=true)
+     */
+    private $nomaventure;
+
+    public function getIdetape(): ?int
+    {
+        return $this->idetape;
     }
 
-    public function getId(): ?int
+    public function getNometape(): ?string
     {
-        return $this->id;
+        return $this->nometape;
     }
 
-    public function getNomEtape(): ?string
+    public function setNometape(?string $nometape)
     {
-        return $this->nomEtape;
+        $this->nometape = $nometape;
     }
 
-    public function setNomEtape(string $nomEtape): self
+    public function getPosxqrcode(): ?float
     {
-        $this->nomEtape = $nomEtape;
-
-        return $this;
+        return $this->posxqrcode;
     }
 
-    public function getPosXQRCode(): ?int
+    public function setPosxqrcode(?float $posxqrcode)
     {
-        return $this->posXQRCode;
+        $this->posxqrcode = $posxqrcode;
     }
 
-    public function setPosXQRCode(int $posXQRCode): self
+    public function getPosyqrcode(): ?float
     {
-        $this->posXQRCode = $posXQRCode;
-
-        return $this;
+        return $this->posyqrcode;
     }
 
-    public function getPosYQRCode(): ?int
+    public function setPosyqrcode(?float $posyqrcode)
     {
-        return $this->posYQRCode;
+        $this->posyqrcode = $posyqrcode;
     }
 
-    public function setPosYQRCode(int $posYQRCode): self
+    public function getPlacementaventure(): ?int
     {
-        $this->posYQRCode = $posYQRCode;
-
-        return $this;
+        return $this->placementaventure;
     }
 
-    public function getPlacementAventure(): ?int
+    public function setPlacementaventure(?int $placementaventure)
     {
-        return $this->placementAventure;
+        $this->placementaventure = $placementaventure;
     }
 
-    public function setPlacementAventure(int $placementAventure): self
+    public function getEtatetape(): ?bool
     {
-        $this->placementAventure = $placementAventure;
-
-        return $this;
+        return $this->etatetape;
     }
 
-    public function getEtatEtape(): ?int
+    public function setEtatetape(?bool $etatetape)
     {
-        return $this->etatEtape;
+        $this->etatetape = $etatetape;
     }
 
-    public function setEtatEtape(int $etatEtape): self
+    public function getIdfilm(): ?int
     {
-        $this->etatEtape = $etatEtape;
+        return $this->idfilm;
+    }
 
-        return $this;
+    public function setIdfilm(?int $idfilm)
+    {
+        $this->idfilm = $idfilm;
+    }
+
+    public function getIdquestion(): ?int
+    {
+        return $this->idquestion;
+    }
+
+    public function setIdquestion(?int $idquestion)
+    {
+        $this->idquestion = $idquestion;
+    }
+
+    public function getNomaventure(): ?string
+    {
+        return $this->nomaventure;
+    }
+
+    public function setNomaventure(?string $nomaventure)
+    {
+        $this->nomaventure = $nomaventure;
+    }
+
+    public function setIdEtape(?int $id)
+    {
+        $this->idetape = $id;
+    }
+
+    public function __toString()
+    {
+        return $this->nometape;
     }
 }

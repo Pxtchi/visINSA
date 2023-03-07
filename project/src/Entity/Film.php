@@ -2,35 +2,53 @@
 
 namespace App\Entity;
 
-use App\Repository\FilmRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FilmRepository::class)]
+/**
+ * Film
+ *
+ * @ORM\Table(name="FILM")
+ * @ORM\Entity
+ */
 class Film
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     *
+     * @ORM\Column(name="idFilm", type="integer", nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue()
+     */
+    private $idfilm;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nomFilm = null;
-    private $etape;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nomfilm", type="string", length=42, nullable=true)
+     */
+    private $nomfilm;
 
-    public function getId(): ?int
+    public function getIdfilm(): ?int
     {
-        return $this->id;
+        return $this->idfilm;
     }
 
-    public function getNomFilm(): ?string
+    public function getNomfilm(): ?string
     {
-        return $this->nomFilm;
+        return $this->nomfilm;
     }
 
-    public function setNomFilm(string $nomFilm): self
+    public function setNomfilm(?string $nomfilm)
     {
-        $this->nomFilm = $nomFilm;
-
-        return $this;
+        $this->nomfilm = $nomfilm;
     }
+
+    /**
+     * @param mixed $idfilm
+     */
+    public function setIdfilm(?int $idfilm)
+    {
+        $this->idfilm = $idfilm;
+    }
+
+
 }
