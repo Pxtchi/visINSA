@@ -2,35 +2,63 @@
 
 namespace App\Entity;
 
-use App\Repository\ReponseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ReponseRepository::class)]
+/**
+ * Reponse
+ *
+ * @ORM\Table(name="REPONSE")
+ * @ORM\Entity
+ */
 class Reponse
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="idReponse", type="integer", nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idreponse;
 
-    #[ORM\Column(length: 255)]
-    private ?string $laReponse = null;
-    private $question;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="laReponse", type="string", length=50, nullable=true)
+     */
+    private $lareponse;
 
-    public function getId(): ?int
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="idquestion", type="integer", nullable=true)
+     */
+    private $idquestion;
+
+
+    public function getIdreponse(): ?int
     {
-        return $this->id;
+        return $this->idreponse;
     }
 
-    public function getLaReponse(): ?string
+    public function getLareponse(): ?string
     {
-        return $this->laReponse;
+        return $this->lareponse;
     }
 
-    public function setLaReponse(string $laReponse): self
+    public function setLareponse(?string $lareponse)
     {
-        $this->laReponse = $laReponse;
-
-        return $this;
+        $this->lareponse = $lareponse;
     }
+
+    public function setIdReponse(?int $id)
+    {
+        $this->idreponse = $id;
+    }
+
+    public function setIdQuestion(?int $id)
+    {
+        $this->idquestion = $id;
+    }
+
 }

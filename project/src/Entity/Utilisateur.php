@@ -4,93 +4,175 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use SymfonyCasts\Bundle\VerifyEmail\Model\VerifyEmailSignatureComponents;
 
-#[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-class Utilisateur
+/**
+ * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ */
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nomUti = null;
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $username;
 
-    #[ORM\Column(length: 255)]
-    private ?string $mdpUti = null;
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $mdpUti;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $roles = null;
+    /**
+     * @var string
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
 
-    #[ORM\Column]
-    private ?bool $isVerified = null;
-    private $equipe;
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var boolean|false
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomUti(): ?string
+
+    public function setUsername(string $nomUti)
     {
-        return $this->nomUti;
+        $this->username = $nomUti;
     }
 
-    public function setNomUti(string $nomUti): self
-    {
-        $this->nomUti = $nomUti;
-
-        return $this;
-    }
-
-    public function getMdpUti(): ?string
-    {
-        return $this->mdpUti;
-    }
-
-    public function setMdpUti(string $mdpUti): self
-    {
-        $this->mdpUti = $mdpUti;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
+    /**
+     * @return mixed
+     */
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
-    public function getRoles(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->roles;
+        return (string) $this->username;
     }
 
-    public function setRoles(string $roles): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
-
-        return $this;
     }
 
-    public function isIsVerified(): ?bool
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getmdpUti(): string
+    {
+        return $this->mdpUti;
+    }
+
+    public function setmdpUti(string $mdpUti)
+    {
+        $this->mdpUti = $mdpUti;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainmdpUti = null;
+    }
+
+    public function getPassword(): ?string
+    {
+       return $this->mdpUti;
+    }
+
+
+    public function isVerified(): bool
     {
         return $this->isVerified;
     }
 
-    public function setIsVerified(bool $isVerified): self
+    public function setIsVerified(bool $isVerified)
     {
         $this->isVerified = $isVerified;
+    }
 
-        return $this;
+    public function generateSignature(string $routeName, int $userId, string $userEmail, array $extraParams = []): VerifyEmailSignatureComponents
+    {
+        // TODO: Implement generateSignature() method.
+    }
+
+    public function validateEmailConfirmation(string $signedUrl, int $userId, string $userEmail): void
+    {
+        // TODO: Implement validateEmailConfirmation() method.
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setId(?int $id)
+    {
+        $this->id = $id;
     }
 }

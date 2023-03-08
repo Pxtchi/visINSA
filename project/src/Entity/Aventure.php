@@ -1,59 +1,75 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\AventureRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+
+
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AventureRepository::class)]
+/**
+ * Aventure
+ *
+ * @ORM\Table(name="AVENTURE")
+ * @ORM\Entity(repositoryClass=App\Repository\AventureRepository::class)
+ */
 class Aventure
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nomAventure", type="string", length=42, nullable=true)
+     * @ORM\Id
+     */
 
-    #[ORM\Column(length: 255)]
-    private ?string $texteAventure = null;
+    private $nomaventure;
 
-    #[ORM\Column]
-    private ?int $etatAventure = null;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="texteAventure", type="string", length=100, nullable=true)
+     */
+    private $texteaventure;
 
-    private $equipes;
-    private $etapes;
+    /**
+     * @var boolean|false
+     *
+     * @ORM\Column(name="etatAventure", type="boolean", length=42, nullable=false)
+     */
+    private $etataventure;
 
-    public function __construct() {
-        $this->equipes = new ArrayCollection();
-        $this->etapes = new ArrayCollection();
-    }
-
-    public function getId(): ?int
+    public function setNomaventure(?string $nomaventure)
     {
-        return $this->id;
+        $this->nomaventure = $nomaventure;
     }
 
-    public function getTexteAventure(): ?string
+    public function getNomaventure(): ?string
     {
-        return $this->texteAventure;
+        return $this->nomaventure;
     }
 
-    public function setTexteAventure(string $texteAventure): self
+    public function getTexteaventure(): ?string
     {
-        $this->texteAventure = $texteAventure;
-
-        return $this;
+        return $this->texteaventure;
     }
 
-    public function getEtatAventure(): ?int
+    public function setTexteaventure(?string $texteaventure)
     {
-        return $this->etatAventure;
+        $this->texteaventure = $texteaventure;
     }
 
-    public function setEtatAventure(int $etatAventure): self
+    public function getEtataventure(): bool
     {
-        $this->etatAventure = $etatAventure;
-
-        return $this;
+        return $this->etataventure;
     }
+
+    public function setEtataventure(?bool $etataventure)
+    {
+        $this->etataventure = $etataventure;
+    }
+
+    public function __toString()
+    {
+        return $this->nomaventure;
+    }
+
 }

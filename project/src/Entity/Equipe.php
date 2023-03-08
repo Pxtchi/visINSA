@@ -2,59 +2,84 @@
 
 namespace App\Entity;
 
-use App\Repository\EquipeRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EquipeRepository::class)]
+/**
+ * Equipe
+ *
+ * @ORM\Table(name="EQUIPE")
+ * @ORM\Entity
+ */
 class Equipe
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="idEquipe", type="integer", nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idequipe;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nomEquipe = null;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nomEquipe", type="string", length=42, nullable=true)
+     */
+    private $nomequipe;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nomsJoueurs = null;
-    private $utilisateurs;
-    private $tentatives;
-    private $aventures;
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="idJoueur", type="integer", nullable=true)
+     */
+    private $idJoueur;
 
-    public function __construct() {
-        $this->utilisateurs = new ArrayCollection();
-        $this->tentatives = new ArrayCollection();
-        $this->aventures = new ArrayCollection();
-    }
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="nomJoueurs", type="string", length=50, nullable=true)
+     */
+    private $nomjoueurs;
 
-    public function getId(): ?int
+    public function getIdequipe(): ?int
     {
-        return $this->id;
+        return $this->idequipe;
     }
 
-    public function getNomEquipe(): ?string
+    public function getNomequipe(): ?string
     {
-        return $this->nomEquipe;
+        return $this->nomequipe;
     }
 
-    public function setNomEquipe(string $nomEquipe): self
+    public function setNomequipe(?string $nomequipe)
     {
-        $this->nomEquipe = $nomEquipe;
-
-        return $this;
+        $this->nomequipe = $nomequipe;
     }
 
-    public function getNomsJoueurs(): ?string
+    public function getIdJoueur(): ?int
     {
-        return $this->nomsJoueurs;
+        return $this->idJoueur;
     }
 
-    public function setNomsJoueurs(string $nomsJoueurs): self
+    public function setIdJoueur(?int $id)
     {
-        $this->nomsJoueurs = $nomsJoueurs;
-
-        return $this;
+        $this->idJoueur = $id;
     }
+
+    public function setIdEquipe(?int $id)
+    {
+        $this->idequipe = $id;
+    }
+
+    public function getNomjoueurs(): ?string
+    {
+        return $this->nomjoueurs;
+    }
+
+    public function setNomjoueurs(?string $nomjoueurs)
+    {
+        $this->nomjoueurs = $nomjoueurs;
+    }
+
 }
