@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
-use App\Repository\UtilisateurRepository;
+use App\Entity\Roles;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +14,10 @@ class AdminController extends AbstractController{
     public function panel(EntityManagerInterface $doctrine): Response
     {
         $users = $doctrine->getRepository(Utilisateur::class)->getJoueurs();
+        $roles = new Roles();
         return $this->render('admin/adminPanel.html.twig', [
-            'all_users' => $users
+            'all_users' => $users,
+            'roles' => $roles->getAllRoles()
         ]);
     }
 }
