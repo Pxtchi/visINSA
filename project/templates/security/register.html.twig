@@ -1,0 +1,20 @@
+{%  extends '/securityHome.html.twig' %}
+{% block main %}
+
+
+    {{ form_start(registrationForm) }}
+    <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+
+    {{form_label(registrationForm.username, "Nom d\'utilisateur")}}
+    {{form_widget(registrationForm.username, {'attr': {'class': 'form-control'}})}}
+
+    {{form_label(registrationForm.email, "Adresse e-mail")}}
+    {{form_widget(registrationForm.email, {'attr': {'class': 'form-control'}})}}
+
+    {{form_label(registrationForm.plainPassword, "Mot de Passe")}}
+    {{form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}})}}
+
+
+        <button type="submit" class="btn btn-lg btn-primary bouton_important">S'inscrire</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
