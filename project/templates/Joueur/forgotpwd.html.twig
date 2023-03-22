@@ -1,0 +1,13 @@
+{% extends "/Joueur/templateJoueur.php.twig" %}
+{% block main %}
+<main>
+    <form action="verification.php" method="POST" class="formConnexion">
+        <label><b>Adresse mail</b></label>
+        <input type="text" placeholder="Entrer l'adresse mail" name="username" required>
+        <input type="submit" id='submit' value='Valider' >
+    </form>
+    <form method="POST" action="">
+        <input type="submit" value='Annuler' />
+    </form>
+</main>
+{% endblock %}

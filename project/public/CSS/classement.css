@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+    text-align: center;
+}
+.titre {
+    padding: 1em 0;
+    background-color: rgba(182, 182, 182, 0.29);
+    font-size: larger;
+}
+table > tbody > tr:first-child > * {
+    padding: 0.5em 0 1em 0;
+    font-weight: bold;
+}
+table > tbody > tr:nth-child(n+2) > * {
+    padding: 0.5em 0;
+}

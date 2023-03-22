@@ -35,7 +35,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
     {
         $this->urlGenerator = $urlGenerator;
     }
-
+    
     /**
      * Fonction authenticate
      *

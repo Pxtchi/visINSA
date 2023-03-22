@@ -7,3 +7,35 @@ controllers:
 homepage:
     path: /
     controller: App\Controller\SecurityController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+app_register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+home:
+    path: /joueur
+    controller: App\Controller\CarteController::getMarkers
+
+scan:
+    path: /joueur/scan
+    controller: App\Controller\JoueurController::scan
+
+adv:
+    path: /joueur/adv
+    controller: App\Controller\JoueurController::adv
+
+rank:
+    path: /joueur/rank
+    controller: App\Controller\JoueurController::rank
+
+mission:
+    path: /joueur/adv/mission
+    controller: App\Controller\JoueurController::mission
+
+setIsActuelle:
+    path: joueur/set/aventure
+    controller: App\Controller\JoueurController::setIsActuelle
