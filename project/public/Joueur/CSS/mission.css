@@ -1,0 +1,32 @@
+li {
+    list-style-type: none;
+    text-align: center;
+}
+#ulListeEtape > div{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1em 3em;
+
+}
+#ulListeEtape > div{
+    background-color: rgba(182, 182, 182, 0.29);
+}
+#ulListeEtape p, #ulListeJoueur p {
+    margin:0!important;
+}
+hr {
+    width: 40%;
+    background-color: dimgray;
+    margin: 1em auto;
+}
+main:first-child {
+    margin-top: 2em;
+}
+#ulListeEtape {
+    padding-left: 0;
+}
+.textes_mission {
+
+}

@@ -1,0 +1,47 @@
+{% extends "/Joueur/templateJoueur.php.twig" %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('Joueur/CSS/aventure.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/classement.css') }}"
+{% endblock %}
+{% block main %}
+    <main>
+    <h2>Classement des équipes</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Place</td>
+                    <td>Nom de l'équipe</td>
+                    <td>Score</td>
+                </tr>
+                {% for score in scores %}
+                    {% set x = loop.index %}
+                    {% for team in teams %}
+                        {% if score.idequipe == team.idequipe %}
+                            <tr>
+                                <td>{{ x }}</td>
+                                <td>{{ team.nomequipe }}</td>
+                                <td>{{ score.getScore }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+{#        <ul id = "ulListeJoueur">#}
+{#            {% for score in scores %}#}
+{#            {% set x = loop.index %}#}
+{#                {% for team in teams %}#}
+{#                    {% if score.idequipe == team.idequipe %}#}
+{#                        <div>#}
+{#                            <li><strong>{{x}}</strong> Equipe:  {{ team.nomequipe }}</li>#}
+{#                            <p>Score:  {{ score.getScore }}</p>#}
+{#                        </div>#}
+{#                        <hr/>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            {% endfor %}#}
+{#        </ul>#}
+    </main>
+{% endblock %}

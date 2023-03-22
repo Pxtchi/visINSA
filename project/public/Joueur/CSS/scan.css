@@ -1,0 +1,17 @@
+main {
+    margin: 0!important;
+    width: 100%!important;
+}
+main > div {
+    text-align: center;
+}
+#qr-video {
+    width: 100%;
+    height: auto;
+}
+label {
+    font-size: x-large;
+}
+.video_scan {
+    text-align: center;
+}

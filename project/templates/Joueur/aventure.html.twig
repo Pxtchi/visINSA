@@ -1,0 +1,68 @@
+{% extends "/Joueur/templateJoueur.php.twig" %}
+{% block styles %}
+	<link rel="stylesheet" href="{{ asset('Joueur/CSS/aventure.css') }}">
+{% endblock %}
+{% block main %}
+	<main>
+		<ul id="ulListeAventure" >
+			{% for aventure in aventures %}
+				{% if aventure.aventureIsActuelle == 1 %}
+					<div id="{{aventure.nomaventure}}" class="isActuelle">
+						<li class = "liAventure">{{aventure.nomaventure}}</li>
+						<div class="button">
+							<button class ="btn btn-primary" onclick="location.href = '/joueur/adv/mission?idAventure={{aventure.nomaventure}}'">Consulter</button>
+						</div>
+					</div>
+				{% else %}
+					<div id="{{aventure.nomaventure}}">
+						<li class = "liAventure">{{aventure.nomaventure}}</li>
+						<div class="button">
+							<button onclick="reprendre(this)" id="set" class="setAventure btn btn-primary" value="{{aventure.nomaventure}}">Reprendre</button>
+							<button class ="btn btn-primary" onclick="location.href = '/joueur/adv/mission?idAventure={{aventure.nomaventure}}'">Consulter</button>
+						</div>
+					</div>
+				{% endif %}
+				<hr>
+			{% endfor %}
+		</ul>
+	</main>
+{% endblock %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	function reprendre(e) {
+                if (e.value != "") {
+                    $.ajax({
+                        type: 'post',
+                        url: "{{ path('setIsActuelle') }}",
+                        data: { aventure: e.value },
+						dataType: "json",
+                        success: function (response) {
+							elem = document.getElementById(response['new']);
+							elem.classList.add("isActuelle");
+							let div = elem.getElementsByClassName("button")[0];
+							div.removeChild(div.getElementsByClassName("setAventure")[0]);
+
+							
+							elem = document.getElementById(response['old']);
+							elem.classList.remove("isActuelle");
+							let b = document.createElement("button");
+							b.value = response['old'];
+							b.textContent = "Reprendre";
+							b.classList.add("setAventure");
+							b.classList.add("btn");
+							b.classList.add("btn-primary");
+							b.id = "set";
+							b.onclick = function (e){reprendre(e.path[0])};
+							div = elem.getElementsByClassName("button")[0];
+							div.insertBefore(b, div.children[0]);
+
+							
+                            
+                        }
+                    })
+                }
+            }
+</script>
+
+{% endblock %}
