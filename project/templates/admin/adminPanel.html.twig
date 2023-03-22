@@ -16,7 +16,12 @@
         <li class="d-flex"> {{ user.username|e }} :
             {# show all role user #}
             {% for role in user.roles %}
-            {{ role }}
+                <div class="d-flex">
+                    {{ role }}
+                    <form action="/admin/users/roles/{{ user.id }}?role=x{{ role }}" method="POST">
+                        <input type="submit" value="remove"/>
+                    </form>
+                </div>
             {% endfor %}
 
             {# Menu deroulant pour les roles #}
@@ -24,7 +29,9 @@
                 <button type="button" class="btn btn-primary dropdown-toggle" id="deroulant" data-toggle="dropdown" >dropdown-menu</button>
                 <div class="dropdown-menu">
                     {% for role in roles %}
-                        <a class="dropdown-item" href="#">{{ role }}</a>
+                    <form action="/admin/users/roles/{{ user.id }}?role={{ role }}" method="POST">
+                        <input type="submit" value="{{ role }}" class="dropdown-item"/>
+                    </form>
                     {% endfor %}
                 </div>
             </div>
