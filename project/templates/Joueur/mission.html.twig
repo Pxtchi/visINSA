@@ -1,0 +1,43 @@
+{% extends "/Joueur/templateJoueur.php.twig" %}
+{% block styles %}
+	<link rel="stylesheet" href="{{ asset('Joueur/CSS/mission.css') }}">
+{% endblock %}
+{% block main %}
+    <main>
+        <div class="textes_mission">
+            <h4>Description de l'aventure {{aventure.nomaventure}} :</h4>
+            <p>{{aventure.texteaventure}}</p>
+            <h4>Equipe {{equipe.nomequipe}} :</h4>
+            <p>Les membres de l'équipe : {{equipe.nomjoueurs}}</p>
+            <p>Le score de l'équipe : {{equipe.score}}</p>
+        </div>
+        <div id = "ulListeEtape">
+            {% for i in 0..(etapes|length)-1 %}
+                {% if i < (is|length) %}
+                    {% if is[i]["isCorrect"] =='' %}
+                        <div style="background-color:rgb(255, 168, 168);" id="{{etapes[i]['nometape']}}">
+                            <p>{{etapes[i]['nometape']}}</p>
+                            <p>{{etapes[i]['pointsquestion']}} points</p>
+                        </div>
+                        <hr>
+                    {% elseif  is[i]["isCorrect"] == 1%}
+                        <div style="background-color:rgb(168, 255, 180);" id="{{etapes[i]['nometape']}}">
+                            <p>{{etapes[i]['nometape']}}</p>
+                            <p>{{etapes[i]['pointsquestion']}} points</p>
+                        </div>
+                        <hr>
+                    {% endif %}
+                    {% else %}
+                    <div id="{{etapes[i]['nometape']}}">
+                        <p>{{etapes[i]['nometape']}}</p>
+                        <p>{{etapes[i]['pointsquestion']}} points</p>
+                    </div>
+                    <hr>
+                {% endif %}
+
+            {% endfor %}
+            
+        </div>
+        <button class="btn btn-primary" onclick="location.href = '/joueur/adv'" >Retourner aux aventures</button>
+    </main>
+{% endblock %}

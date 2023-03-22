@@ -1,0 +1,28 @@
+body {
+    margin-bottom: 0!important;
+}
+main {
+    margin: 0!important;
+    width: 100%!important;
+}
+#map {
+    box-sizing: border-box;
+    z-index: 0;
+}
+
+@media (min-width:0px) and (max-width: 750px) {
+    #map {
+        min-height: 95vh;
+    }
+}
+@media (min-width: 751px) and (max-width: 1000px) {
+    #map {
+        min-height: 90vh;
+    }
+}
+
+@media (min-width: 1001px) {
+    #map {
+        min-height: 82vh;
+    }
+}

@@ -1,0 +1,51 @@
+{% extends "/Joueur/templateJoueur.php.twig" %}
+{% block styles %}
+	<link rel="stylesheet" href="{{ asset('Joueur/CSS/scan.css') }}">
+{% endblock %}
+{% block main %}
+    <main>
+        <div>
+            <video id="qr-video"></video>
+            <span id="cam-qr-result"></span>
+        </div>
+    </main>
+
+{% endblock %}
+{% block script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="module">
+
+        import QrScanner from '{{ asset('Joueur/JS/scan/qr-scanner.min.js') }}';
+        QrScanner.WORKER_PATH = '{{ asset('Joueur/JS/scan/qr-scanner-worker.min.js') }}';
+
+        const video = document.getElementById('qr-video');
+        const camQrResult = document.getElementById('cam-qr-result');
+        let cpt = 0;
+
+        function setResult(label, result) {
+            if (cpt == 0) {
+                label.textContent = result;
+                var actionForm = $('<form>', {'action': '/joueur/questionnaire', 'method': 'post'}).append($('<input>', {'name': 'id', 'value': result, 'type': 'hidden'}));
+                actionForm.appendTo('body').submit();
+                clearTimeout(label.highlightTimeout);
+                label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
+            }
+            cpt += 1
+        }
+
+        const scanner = new QrScanner(video, result => setResult(camQrResult, result), error => {
+            camQrResult.textContent = "Pas de QR-code trouvé";
+            camQrResult.style.color = 'inherit';
+        });
+
+        // ####### Web Cam Scanning #######
+
+
+        scanner.start()
+        // for debugging
+        window.scanner = scanner;
+
+        scanner.setInversionMode("original");
+
+    </script>
+{% endblock %}

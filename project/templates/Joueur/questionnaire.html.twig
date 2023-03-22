@@ -1,0 +1,37 @@
+{% extends "/Joueur/templateJoueur.php.twig" %}
+{% block styles %}
+    <style>
+        label {
+            font-size:x-large;
+        }
+        label, input[type=text], video {
+            margin-bottom: 2em;
+        }
+        video {
+            width: 50vw;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <main>
+        <div class="video_scan">
+            <video src="/upload/{{ nomFilm }}" controls controlslist="nodownload" alt="Pas de vidéo"></video>
+        </div>
+
+        <div class="formQuestionnaire">
+            {{ form_start(form) }}
+            <div>
+                <label for="questionnaire_form_reponse">{{ texteQuestion }}</label>
+                {{ form_widget(form.reponse, {'attr': {'class': 'form-control' }}) }}
+                <small>{{ form_help(form.reponse) }}</small>
+            </div>
+            <div>
+                {{ form_widget(form.idEtape, {'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div>
+                {{ form_row(form.valider, {"attr": {"class": "bouton_important btn btn-primary"}})}}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}

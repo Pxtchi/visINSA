@@ -1,0 +1,36 @@
+li {
+    list-style-type: none;
+}
+#ulListeAventure > div, #ulListeJoueur > div {  
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1em 3em;
+
+}
+#ulListeAventure p, #ulListeJoueur p {
+    margin:0!important;
+}
+main:first-child {
+    margin-top: 2em;
+}
+#ulListeAventure {
+    padding-left: 0;
+}
+#ulListeJoueur {
+    padding-left: 0;
+}
+
+.isActuelle{
+    background-color: rgba(168, 255, 180);
+}
+#set {
+    margin-right: 3em;
+}
+
+@media only screen and (max-width: 685px) { 
+    main {
+        width: 100%;
+    }
+}
