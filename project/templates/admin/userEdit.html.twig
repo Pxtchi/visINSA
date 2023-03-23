@@ -9,7 +9,7 @@
 
 </head>
 <body>
-<h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+<h1 class="h3 mb-3 font-weight-normal">User Edit</h1>
 {{ form_start(editUser) }}
 
 
@@ -20,7 +20,7 @@
 {{form_widget(editUser.email, {'attr': {'class': 'form-control'}}) }}
 
 {{ form_label(editUser.roles, "roles") }}
-{{ form_widget(editUser.roles, { 'attr': {'class': 'form-control'} }) }}
+{{ form_widget(editUser.roles, { 'attr': {'class': 'form-control form-check'} }) }}
 
 {{ form_label(editUser.isVerified, "Utilisateur verifié") }}
 {{ form_widget(editUser.isVerified, { 'attr': {'class': 'form-control'} }) }}

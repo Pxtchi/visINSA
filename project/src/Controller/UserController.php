@@ -71,14 +71,13 @@ class UserController extends AbstractController{
                 'label' => 'Role',
                 'multiple' => true,
                 'choices' => $roles->arrayRoles(),
+                'expanded' => true,
             ])
             ->getForm();
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $doctrine->flush();
-
             return $this->redirectToRoute('AdminMainPanel');
         }
 
