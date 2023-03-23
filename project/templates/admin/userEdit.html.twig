@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>visINSA</title>
+    <link rel="icon" type="image/ico" href="{{ asset('icons/faticon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+<h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+{{ form_start(editUser) }}
+
+
+{{form_label(editUser.username, "Nom d\'utilisateur")}}
+{{form_widget(editUser.username, {'attr': {'class': 'form-control'}}) }}
+
+{{form_label(editUser.email, "Adresse e-mail")}}
+{{form_widget(editUser.email, {'attr': {'class': 'form-control'}}) }}
+
+{{ form_label(editUser.roles, "roles") }}
+{{ form_widget(editUser.roles, { 'attr': {'class': 'form-control'} }) }}
+
+{{ form_label(editUser.isVerified, "Utilisateur verifié") }}
+{{ form_widget(editUser.isVerified, { 'attr': {'class': 'form-control'} }) }}
+
+
+<button type="submit" class="btn btn-lg btn-primary bouton_important">Edit</button>
+{{ form_end(editUser) }}
+</body>

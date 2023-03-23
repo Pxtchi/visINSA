@@ -10,4 +10,8 @@ class Roles{
     public function getAllRoles() : array {
         return [self::ROLE_ADMIN,self::ROLE_CONCEPTEUR,self::ROLE_USER];
     }
+
+    public function arrayRoles() : array {
+        return [self::ROLE_ADMIN => self::ROLE_ADMIN, self::ROLE_CONCEPTEUR => self::ROLE_CONCEPTEUR,self::ROLE_USER => self::ROLE_USER];
+    }
 }

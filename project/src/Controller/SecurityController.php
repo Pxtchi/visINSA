@@ -34,7 +34,7 @@ class SecurityController extends AbstractController
             }
     
             if (in_array('ROLE_ADMIN', $user->getRoles())) {
-                return new RedirectResponse("/admin/creation");   
+                return new RedirectResponse("/admin");
             }
             return new RedirectResponse("/joueur");   
         }

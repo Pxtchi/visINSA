@@ -39,3 +39,24 @@ mission:
 setIsActuelle:
     path: joueur/set/aventure
     controller: App\Controller\JoueurController::setIsActuelle
+
+AdminMainPanel:
+    path: /admin
+    controller: App\Controller\AdminController::panel
+
+manageRole:
+    path: /admin/users/roles/{userid}
+    controller: App\Controller\UserController::manageRole
+    requirements:
+        userid: '\d+'
+    methods: 'POST'
+
+roleError:
+    path: /admin/error
+    controller: App\Controller\AdminController::roleError
+
+editUser:
+    path: /admin/users/{userid}
+    controller: App\Controller\UserController::editUser
+    requirements:
+        userid: '\d+'
