@@ -18,7 +18,7 @@
 
             {# Menu deroulant pour les roles #}
             <div class="dropdown">
-                <button type="button" class="btn btn-primary dropdown-toggle" id="deroulant" data-toggle="dropdown" >dropdown-menu</button>
+                <button type="button" class="btn btn-primary dropdown-toggle" id="deroulant" data-toggle="dropdown" >roles</button>
                 <div class="dropdown-menu">
                     {% for role in roles %}
                     <form action="/admin/users/roles/{{ user.id }}?role={{ role }}" method="POST">
@@ -33,6 +33,27 @@
             </form>
         </li>
     {% endfor %}
-
 </ul>
+<form action="/admin/adduser">
+    <input class="btn btn-primary" type="submit" value="ajouter un utilisateur"/>
+</form>
+
+<h1>Equipe</h1>
+<ul>
+    {% for equip in equipes %}
+    <li class="d-flex justify-content-between"> {{ equip.nomEquipe|e }} :
+
+        <p>{{ equip.nomJoueurs|e }}</p>
+        <p>{{ equipJoueur[equip.idJoueur] }}</p>
+
+        {# Edit button #}
+        <form action="/admin/equipes/{{ equip.idEquipe }}">
+            <input class="btn btn-primary" type="submit" value="edit"/>
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+<form action="/admin/addEquipe">
+    <input class="btn btn-primary" type="submit" value="ajouter une équipe"/>
+</form>
 {% endblock %}

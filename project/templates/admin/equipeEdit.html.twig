@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>visINSA</title>
+    <link rel="icon" type="image/ico" href="{{ asset('icons/faticon.ico') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+</head>
+<body>
+<h1 class="h3 mb-3 font-weight-normal">Equipe Edit</h1>
+{{ form_start(editEquipe) }}
+
+
+{{form_label(editEquipe.nomEquipe, "Nom d\'utilisateur")}}
+{{form_widget(editEquipe.nomEquipe, {'attr': {'class': 'form-control'}}) }}
+
+
+{{ form_label(editEquipe.joueur, "Joueur Associé") }}
+{{ form_widget(editEquipe.joueur, { 'attr': {'class': 'form-control form-check'} }) }}
+
+{{ form_label(editEquipe.nomJoueurs, "Nom des Joueur supplementaire") }}
+{{ form_widget(editEquipe.nomJoueurs, { 'attr': {'class': 'form-control'} }) }}
+
+
+<button type="submit" class="btn btn-lg btn-primary bouton_important">Edit</button>
+{{ form_end(editEquipe) }}
+</body>
