@@ -72,11 +72,11 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
         }
         $user = $token->getUser();
         if (in_array('ROLE_CONCEPTEUR', $user->getRoles())) {
-            return new RedirectResponse($this->urlGenerator->generate('page_acceuil_concepteur'));
+            return new RedirectResponse($this->urlGenerator->generate('concepteur_home'));
         }
 
         if (in_array('ROLE_ADMIN', $user->getRoles())) {
-            return new RedirectResponse($this->urlGenerator->generate('page_creation_equipe'));
+            return new RedirectResponse($this->urlGenerator->generate('AdminMainPanel'));
         }
 
         // For example:

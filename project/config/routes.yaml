@@ -55,3 +55,23 @@ concepteur_etapes:
 concepteur_aventure:
     path: /concepteur/aventure
     controller : App\Controller\ConcepteurController::modif_aventure
+AdminMainPanel:
+    path: /admin
+    controller: App\Controller\AdminController::panel
+
+manageRole:
+    path: /admin/users/roles/{userid}
+    controller: App\Controller\UserController::manageRole
+    requirements:
+        userid: '\d+'
+    methods: 'POST'
+
+roleError:
+    path: /admin/error
+    controller: App\Controller\AdminController::roleError
+
+editUser:
+    path: /admin/users/{userid}
+    controller: App\Controller\UserController::editUser
+    requirements:
+        userid: '\d+'

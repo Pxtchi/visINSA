@@ -1,0 +1,38 @@
+{% extends "/admin/templateAdmin.php.twig" %}
+{% block main %}
+<h1>Members</h1>
+<ul>
+    {% for user in all_users %}
+        <li class="d-flex justify-content-between"> {{ user.username|e }} :
+            {# show all role user #}
+            <div class="d-flex justify-content-lg-start">
+                {% for role in user.roles %}
+                    <div class="d-flex justify-content-around">
+                        {{ role }}
+                        <form action="/admin/users/roles/{{ user.id }}?role=x{{ role }}" method="POST">
+                            <input type="submit" value="remove"/>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# Menu deroulant pour les roles #}
+            <div class="dropdown">
+                <button type="button" class="btn btn-primary dropdown-toggle" id="deroulant" data-toggle="dropdown" >dropdown-menu</button>
+                <div class="dropdown-menu">
+                    {% for role in roles %}
+                    <form action="/admin/users/roles/{{ user.id }}?role={{ role }}" method="POST">
+                        <input type="submit" value="{{ role }}" class="dropdown-item"/>
+                    </form>
+                    {% endfor %}
+                </div>
+            </div>
+            {# Edit button #}
+            <form action="/admin/users/{{ user.id }}">
+                <input class="btn btn-primary" type="submit" value="edit"/>
+            </form>
+        </li>
+    {% endfor %}
+
+</ul>
+{% endblock %}

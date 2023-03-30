@@ -140,11 +140,19 @@ class UtilisateurRepository extends ServiceEntityRepository implements PasswordU
      * @param json $role
      * @return void
      */
-    public function updtateRole($username, $role) {
+    public function updtateRole($userid, $role) {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
-            "UPDATE App\Entity\Utilisateur u SET u.roles = :role WHERE u.username = :username"
-        )->setParameters(["role" => json_encode([$role]), "username" => $username]);
+            "UPDATE App\Entity\Utilisateur u SET u.roles = :role WHERE u.id = :id"
+        )->setParameters(["role" => json_encode([$role]), "id" => $userid]);
+        return $query->getResult();
+    }
+
+    public function getRoles($userid, $role) {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            "SELECT u.roles App\Entity\Utilisateur u WHERE u.id = :id"
+        )->setParameters(["role" => json_encode([$role]), "id" => $userid]);
         return $query->getResult();
     }
 
