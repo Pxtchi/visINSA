@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Entity\Roles;
-use App\Repository\UtilisateurRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +16,7 @@ class AdminController extends AbstractController{
         $users = $doctrine->getRepository(Utilisateur::class)->getJoueurs();
         $roles = new Roles();
         return $this->render('admin/adminPanel.html.twig', [
+            'titre' => 'Admin Panel',
             'all_users' => $users,
             'roles' => $roles->getAllRoles()
         ]);
