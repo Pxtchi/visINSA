@@ -40,6 +40,21 @@ setIsActuelle:
     path: joueur/set/aventure
     controller: App\Controller\JoueurController::setIsActuelle
 
+concepteur_home:
+    path: /concepteur
+    controller: App\Controller\ConcepteurController::concepteur
+
+concepteur_questions:
+    path: /concepteur/questions
+    controller : App\Controller\ConcepteurController::modif_question
+
+concepteur_etapes:
+    path: /concepteur/etapes
+    controller : App\Controller\ConcepteurController::modif_etape
+
+concepteur_aventure:
+    path: /concepteur/aventure
+    controller : App\Controller\ConcepteurController::modif_aventure
 AdminMainPanel:
     path: /admin
     controller: App\Controller\AdminController::panel
