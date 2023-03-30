@@ -1,22 +1,27 @@
-<!DOCTYPE html>
-<html lang ="fr">
-<head>
-	<meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no">
-    <title>Concepteur</title>
-    <link rel="icon" type="image/ico" href="{{ asset('icons/faticon.ico') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% extends "concepteur/templateConcepteur.php.twig" %}
 
-    
-</head>
-<body>
-    <h1> Liste des Aventures </h1>
+{% block styles %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('Joueur/CSS/map.css') }}">
+{% endblock %}
+{% block scripts %}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
+    <script type="text/javascript" src="{{ asset('Joueur/JS/iconsColors.js') }}"></script>
+{% endblock %}
+
+{% block main %}
 <ul>
     {% for aventure in aventures %}
-        <li>{{ aventure.nomaventure}}
-        <a href="{{ path('modif_aventure', {nomaventure: aventure.nomaventure}) }}"><button class="btn btn-lg btn-primary bouton_important">Modifier</button></a>
-        
+    <br/><br/>
+        <li>
+        {{ aventure.nomaventure}}
+        <a href="{{ path('modif_aventure', {nomaventure: aventure.nomaventure}) }}"><button class="btn btn-lg btn-primary">Modifier</button></a>
+        <br/>
     {% endfor %}
+    <br/><br/>
 </ul>
-</body>
-</html>
+{% endblock %}

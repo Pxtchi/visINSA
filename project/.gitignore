@@ -22,3 +22,5 @@
 composer.lock
 composer.json
 symfony.lock
+
+public/assets/qr-code/
