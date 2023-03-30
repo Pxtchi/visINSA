@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Aventure;
+use App\Repository\AventureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\SearchType;
 use App\Services\QrcodeService;
@@ -27,13 +28,15 @@ class ConcepteurController extends AbstractController
     }
 
     #[Route('/concepteur/modif_aventure/{nomaventure}', name: 'modif_aventure')]
-    public function modif_aventure(EntityManagerInterface $entityManager, string $nomaventure): Response
+    public function modif_aventure(EntityManagerInterface $entityManager, string $nomaventure, AventureRepository $aventureRepository): Response
     {
         $repository = $entityManager->getRepository(Aventure::class);
         $aventure = $repository->find($nomaventure);
+        $etapes = $aventureRepository->getEtapes($nomaventure);
 
         return $this->render('concepteur/modif_aventure.html.twig', [
             'aventure' => $aventure,
+            'titre' => 'Modifier Aventure',
         ]);
     }
 
