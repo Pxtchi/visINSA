@@ -16,10 +16,27 @@
 {% block main %}
 
     {{ form_start(form) }}
-        {{ form_row(form.textequestion) }}
-        {{ form_row(form.pointsquestion) }}
-        {{ form_row(form.creer) }}
+        {{ form_row(form.nometape) }}
+        {{ form_row(form.idquestion) }}
+        {{ form_row(form.idfilm) }}
+        {{ form_row(form.posxqrcode) }}
+        {{ form_row(form.posyqrcode) }}
+        {{ form_row(form.Ajouter) }}
     {{ form_end(form) }}
+    <h3>Générer le qr code</h3>
+    <div class="col-md-6">
+    {{ form_start(formqr) }}
+        {{ form_row(formqr.etape) }}
+        <hr>
+        <button type="submit" class="btn btn-success btn-block">Recherche</button>
+    {{ form_end(formqr) }}
+    </div>
+    <div class="col-md-6">
+    {% if qrCode %}
+        <img src="{{ qrCode }}" alt="qr-code">
+    {% endif %}
+    </div>
+    <h1>z</h1>
 
 
 {% endblock %}

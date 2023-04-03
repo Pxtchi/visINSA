@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use App\Entity\Etape;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SearchType extends AbstractType
+class QrForm extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -19,8 +21,10 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => false
+            ->add('etape', EntityType::class, [
+                'class' => Etape::class,
+                'choice_label' => 'nometape',
+                'label' => 'Etape',                
             ])
         ;
     }
