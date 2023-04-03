@@ -34,7 +34,7 @@ class QrcodeService
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(400)
             ->margin(10)
-            ->labelText('aventure n°')
+            ->labelText('')
             ->labelAlignment(new LabelAlignmentCenter())
             ->labelMargin(new Margin(15, 5, 5, 5))
             ->logoPath($path.'img/logo.png')
