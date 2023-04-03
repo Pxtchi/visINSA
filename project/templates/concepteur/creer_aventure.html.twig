@@ -16,9 +16,17 @@
 {% block main %}
 
     {{ form_start(form) }}
-        {{ form_row(form.nomaventure) }}
-        {{ form_row(form.texteaventure) }}
-        {{ form_row(form.Ajouter) }}
+        <div class="form-group">
+            {{ form_label(form.nomaventure) }}
+            {{ form_widget(form.nomaventure, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.texteaventure) }}
+            {{ form_widget(form.texteaventure, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-success btn-block'}}) }}
+        </div>
     {{ form_end(form) }}
 
 
