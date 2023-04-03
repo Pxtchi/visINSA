@@ -16,12 +16,29 @@
 {% block main %}
 
     {{ form_start(form) }}
-        {{ form_row(form.nometape) }}
-        {{ form_row(form.idquestion) }}
-        {{ form_row(form.idfilm) }}
-        {{ form_row(form.posxqrcode) }}
-        {{ form_row(form.posyqrcode) }}
-        {{ form_row(form.Ajouter) }}
+        <div class="form-group">
+            {{ form_label(form.nometape)}}
+            {{ form_widget(form.nometape, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.idquestion)}}
+            {{ form_widget(form.idquestion, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.idfilm)}}
+            {{ form_widget(form.idfilm, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.posxqrcode)}}
+            {{ form_widget(form.posxqrcode, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.posyqrcode)}}
+            {{ form_widget(form.posyqrcode, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-success btn-block'}}) }}
+        </div>
     {{ form_end(form) }}
     <h3>Générer le qr code</h3>
     <div class="col-md-6">
@@ -36,6 +53,7 @@
         <img src="{{ qrCode }}" alt="qr-code">
     {% endif %}
     </div>
+    <h1 style="color:white;">z</h1>
     <h1 style="color:white;">z</h1>
 
 
