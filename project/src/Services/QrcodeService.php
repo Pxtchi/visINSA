@@ -25,7 +25,7 @@ class QrcodeService
     {
         $url = '';
 
-        $path = dirname(__DIR__, 2).'/public/assets/';
+        $path = dirname(__DIR__, 2).'/public/qrcode/';
 
         // set qrcode
         $result = $this->builder

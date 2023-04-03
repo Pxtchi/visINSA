@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Form\QuestionForm;
+use App\Form\AventureForm;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,9 +13,15 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Aventure;
+use App\Entity\Etape;
+use App\Entity\Question;
+use App\Entity\Film;
+use App\Form\EtapesForm;
+use App\Repository\AventureRepository;
 use Symfony\Component\HttpFoundation\Request;
-use App\Form\SearchType;
+use App\Form\QrForm;
 use App\Services\QrcodeService;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class ConcepteurController extends AbstractController
 {
@@ -27,75 +36,86 @@ class ConcepteurController extends AbstractController
     }
 
     #[Route('/concepteur/modif_aventure/{nomaventure}', name: 'modif_aventure')]
-    public function modif_aventure(EntityManagerInterface $entityManager, string $nomaventure): Response
+    public function modif_aventure(EntityManagerInterface $entityManager, string $nomaventure, AventureRepository $aventureRepository, Request $request): Response
     {
         $repository = $entityManager->getRepository(Aventure::class);
         $aventure = $repository->find($nomaventure);
-
+        $etapes = $aventureRepository->getEtapes($nomaventure);
         return $this->render('concepteur/modif_aventure.html.twig', [
             'aventure' => $aventure,
+            'titre' => 'Modifier Aventure',
+            'etapes' => $etapes,
         ]);
     }
 
-    public function modif_question(EntityManagerInterface $entityManager, string $nomaventure): Response
+    public function modif_question(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $repository = $entityManager->getRepository(Aventure::class);
-        $aventure = $repository->find($nomaventure);
-
-        $form = $this->createFormBuilder($aventure)
-            ->add('nomaventure', EntityType::class, [
-                'class' => Aventure::class,
-            ])
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-            ->getForm();
-
-        return $this->render('concepteur/modif_question.html.twig', [
-            'aventure' => $aventure,
-            'form' => $form,
-        ]);
-    }
-
-    public function modif_etape(EntityManagerInterface $entityManager, string $nomaventure): Response
-    {
-        $repository = $entityManager->getRepository(Aventure::class);
-        $aventure = $repository->find($nomaventure);
-
-        $form = $this->createFormBuilder($aventure)
-            ->add('nomaventure', EntityType::class, [
-                'class' => Aventure::class,
-            ])
-            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-            ->getForm();
-
-        return $this->render('concepteur/modif_etape.html.twig', [
-            'aventure' => $aventure,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/qrcodegenerator', name: 'qrcodegenerator')]
-    /**
-     * @param Request $request
-     * @param QrcodeService $qrcodeService
-     * @return Response
-     */
-    public function qrcodegenerator(Request $request, QrcodeService $qrcodeService): Response
-    {
-        #composer require endroid/qr-code
-        #composer require endroid/qr-code-bundle
-        #enable php-gd
-        $qrCode = null;
-        $form = $this->createForm(SearchType::class, null);
+        $question = new Question();        
+        $form = $this->createForm(QuestionForm::class, $question);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $qrCode = $qrcodeService->qrcode($data['name']);
+            $entityManager->persist($question);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('concepteur_home');
+        }
+        return $this->render('concepteur/modif_question.html.twig', [
+            'titre' => 'Création questions',
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function modif_etape(EntityManagerInterface $entityManager, Request $request, QrcodeService $qrcodeService): Response
+    {
+        $etape = new Etape();
+        $form = $this->createForm(EtapesForm::class, $etape);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $etape->setEtatetape(1);
+
+            $entityManager->persist($etape);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('concepteur_home');
         }
 
-        return $this->render('concepteur/default/index.html.twig', [
+        $qrCode = null;
+        $formqr = $this->createForm(QrForm::class, null);
+        $formqr->handleRequest($request);
+
+        if ($formqr->isSubmitted() && $formqr->isValid()) {
+            $data = $formqr->getData();
+            $etapeqr = $data['etape'];
+            $qrCode = $qrcodeService->qrcode($etapeqr->getIdetape());
+        }
+
+        return $this->render('concepteur/modif_etape.html.twig', [
             'form' => $form->createView(),
+            'titre' => 'Création étapes',
+            'formqr' => $formqr->createView(),
             'qrCode' => $qrCode
+        ]);
+
+
+    }
+
+    public function creer_aventure(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $aventure = new Aventure();
+        $form = $this->createForm(AventureForm::class, $aventure);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($aventure);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('concepteur_home');
+        }
+
+        return $this->render('concepteur/creer_aventure.html.twig', [
+            'titre' => 'Création aventures',
+            'form' => $form->createView(),
         ]);
     }
 }

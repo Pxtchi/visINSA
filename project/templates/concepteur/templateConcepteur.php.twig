@@ -17,14 +17,40 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark loginHeader">
+            <nav class="navbar navbar-expand-md navbar-dark loginHeader">
                 <div class="navbar-collapse collapse width-100 order-1 order-md-0 dual-collapse2">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="switch" href="{{ path('concepteur') }}">{{ titre }}</a>
+                            <a class="switch" href="{{ path('concepteur_home') }}">Mode Concepteur</a>
                         </li>
                     </ul>
                 </div>
+                <div class="mx-auto order-0">
+                        <h1 class="TitrePage"><a href="{{ path('home')}}">{{ titre }}</a></h1>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                </div>
+                <div class="navbar-collapse collapse width-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        {% if app.user %}
+                        <div>
+                            <h3>{{ app.user.username }}</h3> <a class="switch btn-danger" href="{{ path('app_logout') }}">D&#xE9;connexion</a>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a href="/login">Connexion</a>
+                            <a href="/register">Inscription</a>
+                        </div>
+                    {% endif %}
+                    </li>   
+                </ul>
+            </div>
+        </div>
+        </nav>
+    </nav>
+    </nav>
     </header>
 
     {% block main %}
