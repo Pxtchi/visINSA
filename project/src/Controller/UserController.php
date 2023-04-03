@@ -101,6 +101,7 @@ class UserController extends AbstractController{
         }
 
         return $this->render('admin/userEdit.html.twig', [
+            'titre' => "Edit: " . $user->getUsername(),
             'editUser' => $form,
         ]);
     }

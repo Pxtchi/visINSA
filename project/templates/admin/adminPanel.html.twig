@@ -1,59 +1,91 @@
 {% extends "/admin/templateAdmin.php.twig" %}
 {% block main %}
 <h1>Members</h1>
-<ul>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Nom Joueur</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Ajout Rapide</th>
+        <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for user in all_users %}
-        <li class="d-flex justify-content-between"> {{ user.username|e }} :
+        <tr scope="row" >
+            <td>
+                <span class="nowrap">{{ user.username|e }} :</span>
+            </td>
             {# show all role user #}
-            <div class="d-flex justify-content-lg-start">
-                {% for role in user.roles %}
-                    <div class="d-flex justify-content-around">
-                        {{ role }}
-                        <form action="/admin/users/roles/{{ user.id }}?role=x{{ role }}" method="POST">
-                            <input type="submit" value="remove"/>
-                        </form>
-                    </div>
-                {% endfor %}
-            </div>
+            <td class="d-flex justify-content-lg-start">
+            {% for role in user.roles %}
+                {% if role!="ROLE_USER" %}
+                    <p>{{ role }}</p>
+                    <form action="/admin/users/roles/{{ user.id }}?role=x{{ role }}" method="POST">
+                        <input type="submit" value="remove"/>
+                    </form>
+                {% endif %}
+            {% endfor %}
+            </td>
 
             {# Menu deroulant pour les roles #}
-            <div class="dropdown">
+            <td class="dropdown">
                 <button type="button" class="btn btn-primary dropdown-toggle" id="deroulant" data-toggle="dropdown" >roles</button>
                 <div class="dropdown-menu">
                     {% for role in roles %}
-                    <form action="/admin/users/roles/{{ user.id }}?role={{ role }}" method="POST">
-                        <input type="submit" value="{{ role }}" class="dropdown-item"/>
-                    </form>
+                    {% if role!="ROLE_USER" %}
+                        <form action="/admin/users/roles/{{ user.id }}?role={{ role }}" method="POST">
+                            <input type="submit" value="{{ role }}" class="dropdown-item"/>
+                        </form>
+                    {%  endif %}
                     {% endfor %}
                 </div>
-            </div>
+            </td>
             {# Edit button #}
-            <form action="/admin/users/{{ user.id }}">
-                <input class="btn btn-primary" type="submit" value="edit"/>
-            </form>
-        </li>
+            <td>
+                <form action="/admin/users/{{ user.id }}">
+                    <input class="btn btn-primary" type="submit" value="edit"/>
+                </form>
+            </td>
+        </tr>
     {% endfor %}
-</ul>
-<form action="/admin/adduser">
-    <input class="btn btn-primary" type="submit" value="ajouter un utilisateur"/>
-</form>
+    </tbody>
+</table>
+    <form action="/admin/adduser">
+        <input class="btn btn-primary" type="submit" value="ajouter un utilisateur"/>
+    </form>
+
 
 <h1>Equipe</h1>
-<ul>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Nom Equipe</th>
+        <th scope="col">Nom Joueurs</th>
+        <th scope="col">Joueur Associé</th>
+        <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for equip in equipes %}
-    <li class="d-flex justify-content-between"> {{ equip.nomEquipe|e }} :
+    <tr scope="row">
+        <td>{{ equip.nomEquipe|e }} :</td>
 
-        <p>{{ equip.nomJoueurs|e }}</p>
-        <p>{{ equipJoueur[equip.idJoueur] }}</p>
+        <td>{{ equip.nomJoueurs|e }}</td>
+        <td>{{ equipJoueur[equip.idJoueur] }}</td>
 
         {# Edit button #}
+        <td>
         <form action="/admin/equipes/{{ equip.idEquipe }}">
             <input class="btn btn-primary" type="submit" value="edit"/>
         </form>
-    </li>
+        </td>
+    </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
 <form action="/admin/addEquipe">
     <input class="btn btn-primary" type="submit" value="ajouter une équipe"/>
 </form>
+
 {% endblock %}
