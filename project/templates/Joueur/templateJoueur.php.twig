@@ -17,22 +17,20 @@
 </head>
 <body>
     <header>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCEPTEUR')%}
             <nav class="navbar navbar-expand-md navbar-dark loginHeader">
                 <div class="navbar-collapse collapse width-100 order-1 order-md-0 dual-collapse2">
                     <ul class="navbar-nav mr-auto">
+                        {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item active">
                             <a class="switch" href="{{ path('AdminMainPanel') }}">Mode Administrateur</a>
                         </li>
-                    </ul>
-                </div>
-            {% elseif is_granted('ROLE_CONCEPTEUR') %}
-            <nav class="navbar navbar-expand-md navbar-dark loginHeader">
-                <div class="navbar-collapse collapse width-100 order-1 order-md-0 dual-collapse2">
-                    <ul class="navbar-nav mr-auto">
+                        {% endif %}
+                        {% if is_granted('ROLE_CONCEPTEUR') %}
                         <li class="nav-item active">
                             <a class="switch" href="{{ path('concepteur_home') }}">Mode Concepteur</a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div>
             {% else %}

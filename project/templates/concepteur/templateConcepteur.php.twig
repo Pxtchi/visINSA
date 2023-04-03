@@ -23,6 +23,11 @@
                         <li class="nav-item active">
                             <a class="switch" href="{{ path('home') }}">Mode Joueur</a>
                         </li>
+                        {% if is_granted('ROLE_ADMIN')%}
+                        <li class="nav-item active">
+                            <a class="switch" href="{{ path('AdminMainPanel') }}">Mode Administrateur</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="mx-auto order-0">

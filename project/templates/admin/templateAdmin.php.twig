@@ -26,7 +26,7 @@
         <div class="navbar-collapse collapse width-100 order-1 order-md-0 dual-collapse2">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="switch" href="{{ path('AdminMainPanel') }}">Mode Administrateur</a>
+                    <a class="switch" href="{{ path('home') }}">Mode Joueur</a>
                 </li>
                 {% if is_granted('ROLE_CONCEPTEUR') %}
                     <li class="nav-item active">
