@@ -55,6 +55,11 @@ concepteur_etapes:
 concepteur_aventure:
     path: /concepteur/aventure
     controller : App\Controller\ConcepteurController::creer_aventure
+
+concepteur_film:
+    path: /concepteur/film
+    controller : App\Controller\ConcepteurController::importer_film
+
 AdminMainPanel:
     path: /admin
     controller: App\Controller\AdminController::panel
@@ -76,6 +81,26 @@ editUser:
     requirements:
         userid: '\d+'
 
+page_modification_aventure:
+    path: /concepteur/modif_aventure
+    controller: App\Controller\ConcepteurController::modif_aventure
+
+page_ajout_etape_a_aventure:
+    path: /concepteur/addEtape
+    controller: App\Controller\ConcepteurController::addEtape
+
+page_suppr_etape_a_aventure:
+    path: /concepteur/delEtape
+    controller: App\Controller\ConcepteurController::delEtape 
+
+page_suppr_etape:
+    path: /concepteur/delete_etape
+    controller: App\Controller\ConcepteurController::deleteEtape    
+    
+page_suppr_aventure:
+    path: /concepteur/delAventure
+    controller: App\Controller\ConcepteurController::delAventure  
+
 addUser:
     path: /admin/adduser
     controller: App\Controller\UserController::addUser
@@ -89,3 +114,4 @@ editEquipe:
 addEquiper:
     path: /admin/addEquipe
     controller: App\Controller\EquipeController::addEquipe
+

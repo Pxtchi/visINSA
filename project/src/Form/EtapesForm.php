@@ -23,27 +23,23 @@ class EtapesForm extends AbstractType
             ->add('nometape', TextType::class, [
                 'label' => 'Nouvelle étape',
             ])
-            ->add('idquestion', IntegerType::class, [
+            /*->add('idquestion', IntegerType::class, [
                 'label' => 'Question',
             ])
             ->add('idfilm', IntegerType::class, [
                 'label' => 'Film',
-            ])
-            /*
+            ])*/
             ->add('idquestion', EntityType::class, [
                 'class' => Question::class,
                 'choice_label' => 'textequestion',
                 'label' => 'Question',
-                'compound' => true,
                 
             ])
             ->add('idfilm', EntityType::class, [
                 'class' => Film::class,
                 'choice_label' => 'nomfilm',
                 'label' => 'Film',
-                'compound' => true,
             ])
-            */
             ->add('posxqrcode', IntegerType::class, [
                 'label' => 'Position X',
             ])
@@ -56,7 +52,7 @@ class EtapesForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Etape::class,
+            //'data_class' => Etape::class,
         ]);
     }
 }

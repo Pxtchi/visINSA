@@ -16,9 +16,17 @@
 {% block main %}
 
     {{ form_start(form) }}
-        {{ form_row(form.textequestion) }}
-        {{ form_row(form.pointsquestion) }}
-        {{ form_row(form.creer) }}
+        <div class="form-group">
+            {{ form_label(form.textequestion) }}
+            {{ form_widget(form.textequestion, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.pointsquestion) }}
+            {{ form_widget(form.pointsquestion, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_widget(form.creer, {'attr': {'class': 'btn btn-success btn-block'}}) }}
+        </div>
     {{ form_end(form) }}
 
 
