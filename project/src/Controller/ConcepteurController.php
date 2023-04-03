@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,7 +23,7 @@ use App\Repository\EtapeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\QrForm;
 use App\Services\QrcodeService;
-use Symfony\Component\Validator\Constraints\Choice;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ConcepteurController extends AbstractController
 {
@@ -170,10 +171,18 @@ class ConcepteurController extends AbstractController
     public function modif_etape(EntityManagerInterface $entityManager, Request $request, QrcodeService $qrcodeService): Response
     {
         $etape = new Etape();
-        $form = $this->createForm(EtapesForm::class, $etape);
+        $form = $this->createForm(EtapesForm::class, null);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $etape->setNometape($data['nometape']);
+            $question = $data['idquestion'];
+            $etape->setIdquestion($question->getIdquestion());
+            $film = $data['idfilm'];
+            $etape->setIdfilm($film->getIdfilm());
+            $etape->setPosxqrcode($data['posxqrcode']);
+            $etape->setPosyqrcode($data['posyqrcode']);
             $etape->setEtatetape(1);
 
             $entityManager->persist($etape);
@@ -217,6 +226,35 @@ class ConcepteurController extends AbstractController
 
         return $this->render('concepteur/creer_aventure.html.twig', [
             'titre' => 'Création aventures',
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function importer_film(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $filesystem = new Filesystem();
+        $form = $this->createFormBuilder()
+        ->add('file', FileType::class, [
+            'label' => ' ',
+        ])
+        ->add('submit', SubmitType::class, ['label' => 'Importer'])
+        ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('file')->getData();
+            $filename = $file->getClientOriginalName();
+            $filesystem->copy($file->getPathname(), 'public/film/' . $filename);
+            $film = new Film();
+            $film->setNomfilm($filename);
+            $entityManager->persist($film);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('concepteur_home');
+        }
+
+        return $this->render('concepteur/importer_film.html.twig', [
+            'titre' => 'Importer film',
             'form' => $form->createView(),
         ]);
     }
