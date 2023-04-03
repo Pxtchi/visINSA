@@ -1,14 +1,57 @@
 {% extends "concepteur/templateConcepteur.php.twig" %}
 
-
-
 {% block main %}
+    <h2 for = "newquestion">Aventure - {{nomAventure}}</h2>
+    <a class="btn btn-dark" href="/concepteur"> Retour </a>
 
-    <h1>{{aventure.nomaventure}}</h1>
-    <p>{{aventure.texteaventure}}</p>
+    <form class="nouvelle_question" action="modif_aventure?aventure={{nomAventure}}&send=1" method="post">
+        <label for = "newquestion">Etat de l'Aventure</label>
+        <select class="form-control" name="etatAventure">
+            <option value="0">En développement</option>
+            <option value="1">Terminé</option>
+        </select>
 
-    {% for etape in etapes %}
-        <p>{{etape.getNometape()}}</p>
-        <p>{{getReponsesEtape(etape.getIdquestion())}}</p>
-    {% endfor %}
+        <label for="newquestion">Nouvelle description</label>
+        <textarea class="form-control" rows="6" name="texteAventure">{{texteAventure}}</textarea>
+
+        <input class ="btn btn-primary bouton_important" type="submit" value="Modifier l'Aventure">
+    </form>
+
+    <form class="addEtape" action="addEtape?aventure={{nomAventure}}" method="post">
+        <label for="etapeAll">Ajouter une étape à l'aventure</label>
+        <select class="form-control" name="etapeAll">
+            {% for x in etapesAll %}
+            <option value="{{x}}">{{x}}</option>
+            {% endfor %}
+        </select>
+        <input class="btn btn-primary bouton_important" type="submit" value="Ajouter l'étape">
+    </form>
+
+    <section>
+        <table>
+            <thead>
+            <tr>
+                <th colspan="3" class="titre">Etapes de l'Aventure</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Nom de l'Etape</td>
+                <td>Ordre dans l'Aventure</td>
+            </tr>
+            {% for etape in etapes %}
+                <tr>
+                    <td>{{ etape }}</td>
+                    <td>{{ numEtapes[loop.index -1] }}</td>
+                    <td><a class="btn btn-danger" href="delEtape?aventure={{nomAventure}}&etape={{etape}}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <div>
+        <a class="btn btn-danger bouton_important" onclick="confirm('Voulez-vous vraiment supprimer cette Aventure ?')" href="delAventure?aventure={{nomAventure}}">Supprimer l'aventure</a>
+    </div>
+
 {% endblock %}

@@ -19,7 +19,7 @@
     <br/><br/>
         <li>
         {{ aventure.nomaventure}}
-        <a href="{{ path('modif_aventure', {nomaventure: aventure.nomaventure}) }}"><button class="btn btn-lg btn-primary">Modifier</button></a>
+        <a href="/concepteur/modif_aventure?aventure={{ aventure }}&send=0"><button class="btn btn-lg btn-primary">Modifier</button></a>
         <br/>
     {% endfor %}
     <br/><br/>

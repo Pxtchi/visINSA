@@ -30,7 +30,7 @@ class SecurityController extends AbstractController
         $user = $this->getUser();
         if (isset($user)) {
             if (in_array('ROLE_CONCEPTEUR', $user->getRoles())) {
-                return new RedirectResponse("/concepteur/accueil");   
+                return new RedirectResponse("/concepteur");   
             }
     
             if (in_array('ROLE_ADMIN', $user->getRoles())) {
