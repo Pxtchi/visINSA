@@ -72,7 +72,7 @@ roleError:
 
 editUser:
     path: /admin/users/{userid}
-    controller: App\Controller\UserController::editUser
+    controller: App\Controller\UserController::editExistentUser
     requirements:
         userid: '\d+'
 
@@ -95,3 +95,18 @@ page_suppr_etape:
 page_suppr_aventure:
     path: /concepteur/delAventure
     controller: App\Controller\ConcepteurController::delAventure  
+
+addUser:
+    path: /admin/adduser
+    controller: App\Controller\UserController::addUser
+
+editEquipe:
+    path: /admin/equipes/{equipeid}
+    controller: App\Controller\EquipeController::editExistentEquipe
+    requirements:
+        userid: '\d+'
+
+addEquiper:
+    path: /admin/addEquipe
+    controller: App\Controller\EquipeController::addEquipe
+
