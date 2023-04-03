@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 class UserController extends AbstractController{
     public function manageRole(int $userid, EntityManagerInterface $doctrine, Request $request): Response{
         $role_query = $request->getQueryString('role');
@@ -57,8 +59,24 @@ class UserController extends AbstractController{
         return $this->redirectToRoute('AdminMainPanel');
     }
 
-    public function editUser(int $userid, EntityManagerInterface $doctrine, Request $request): Response{
+    public function addUser(EntityManagerInterface $doctrine,UserPasswordHasherInterface $userPasswordHasher, Request $request): Response{
+        $user = new Utilisateur();
+        $user->setMdpUti(
+            $userPasswordHasher->hashPassword(
+                $user,
+                "defaultpassword"
+            )
+        );
+        return $this->editUser($user,$doctrine,$request);
+
+    }
+
+    public function editExistentUser(int $userid, EntityManagerInterface $doctrine, Request $request): Response
+    {
         $user = $doctrine->getRepository(Utilisateur::class)->find($userid);
+        return $this->editUser($user,$doctrine,$request);
+    }
+    public function editUser(Utilisateur $user, EntityManagerInterface $doctrine, Request $request): Response{
         $roles = new Roles();
 
         $form = $this->createFormBuilder($user)
@@ -77,6 +95,7 @@ class UserController extends AbstractController{
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $doctrine->persist($user);
             $doctrine->flush();
             return $this->redirectToRoute('AdminMainPanel');
         }
