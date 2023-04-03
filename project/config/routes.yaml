@@ -55,6 +55,11 @@ concepteur_etapes:
 concepteur_aventure:
     path: /concepteur/aventure
     controller : App\Controller\ConcepteurController::creer_aventure
+
+concepteur_film:
+    path: /concepteur/film
+    controller : App\Controller\ConcepteurController::importer_film
+
 AdminMainPanel:
     path: /admin
     controller: App\Controller\AdminController::panel

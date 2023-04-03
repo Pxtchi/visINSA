@@ -14,15 +14,10 @@
 {% endblock %}
 
 {% block main %}
-<ul>
-    {% for aventure in aventures %}
-    <br/><br/>
-        <li>
-        {{ aventure.nomaventure}}
-        <a href="/concepteur/modif_aventure?aventure={{ aventure }}&send=0"><button class="btn btn-lg btn-primary">Modifier</button></a>
-        <br/>
-    {% endfor %}
-    <br/><br/>
-</ul>
-<h1 style="color:white;">z</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.file) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+
 {% endblock %}

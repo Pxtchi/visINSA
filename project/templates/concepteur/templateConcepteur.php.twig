@@ -70,20 +70,27 @@
             {% else %}
                 <li class="liFooter">
             {% endif %}
-            <a href="{{ path('concepteur_questions')}}" alt="scan"><img class="logoNav" src="/content/questions-et-reponses.png" alt="question"/></a></li>
+            <a href="{{ path('concepteur_questions')}}" alt="question"><img class="logoNav" src="/content/questions-et-reponses.png" alt="question"/></a></li>
 
             {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == "/concepteur/etapes" %}
                 <li class="liactive">
             {% else %}
                 <li class="liFooter">
             {% endif %}
-            <a href="{{ path('concepteur_etapes')}}" alt="adv"><img class="logoNav" src="/content/flag.png" alt="adv"/></a></li>
+            <a href="{{ path('concepteur_etapes')}}" alt="etape"><img class="logoNav" src="/content/flag.png" alt="etape"/></a></li>
 
             {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == "/concepteur/aventure" %}
                 <li class="liactive">
             {% else %}
                 <li class="liFooter">
             {% endif %}
-            <a href="{{ path('concepteur_aventure')}}" alt="rank"><img class="logoNav" src="/content/map.png" alt="rank"/></a></li>
+            <a href="{{ path('concepteur_aventure')}}" alt="aventure"><img class="logoNav" src="/content/map.png" alt="aventure"/></a></li>
+
+            {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == "/concepteur/film" %}
+                <li class="liactive">
+            {% else %}
+                <li class="liFooter">
+            {% endif %}
+            <a href="{{ path('concepteur_film')}}" alt="film"><img class="logoNav" src="/content/film.png" alt="film"/></a></li>
         </ul>
     </footer>
