@@ -65,7 +65,7 @@ class ConcepteurController extends AbstractController
 
         $doctrine->getManager()->flush();
         
-        return $this->render('Concepteur/modif_aventure.html.twig',['titre' => $titre,'nomAventure' => $nomAventure,'etatAventure' => $aventure->getEtataventure(),
+        return $this->render('concepteur/modif_aventure.html.twig',['titre' => $titre,'nomAventure' => $nomAventure,'etatAventure' => $aventure->getEtataventure(),
                                                                 'texteAventure'=> $aventure->getTexteaventure(),'etapes' =>  $nomEtapes,'etapesAll' => $nomEtapesAll, 'numEtapes' => $numEtapes]);
     }
 
