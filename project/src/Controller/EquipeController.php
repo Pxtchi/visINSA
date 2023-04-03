@@ -15,16 +15,16 @@ class EquipeController extends AbstractController{
 
     public function addEquipe(EntityManagerInterface $doctrine, Request $request): Response{
         $equipe = new Equipe();
-        return $this->editUser($equipe,$doctrine,$request);
+        return $this->editEquipe($equipe,$doctrine,$request);
 
     }
 
     public function editExistentEquipe(int $equipeid, EntityManagerInterface $doctrine, Request $request): Response
     {
         $equipe = $doctrine->getRepository(Equipe::class)->find($equipeid);
-        return $this->editUser($equipe ,$doctrine,$request);
+        return $this->editEquipe($equipe ,$doctrine,$request);
     }
-    public function editUser(Equipe $equipe, EntityManagerInterface $doctrine, Request $request): Response{
+    public function editEquipe(Equipe $equipe, EntityManagerInterface $doctrine, Request $request): Response{
 
         $users = $doctrine->getRepository(Utilisateur::class)->getJoueurs();
         $userTab = [];
@@ -50,6 +50,7 @@ class EquipeController extends AbstractController{
         }
 
         return $this->render('admin/equipeEdit.html.twig', [
+            'titre' => "Edit: " . $equipe->getNomequipe(),
             'editEquipe' => $form,
         ]);
     }

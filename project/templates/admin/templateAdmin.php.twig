@@ -26,67 +26,60 @@
         <div class="navbar-collapse collapse width-100 order-1 order-md-0 dual-collapse2">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="switch" href="{{ path('AdminMainPanel') }}">Mode Administrateur</a>
+                    <a class="switch" href="{{ path('home') }}">Mode Joueur</a>
                 </li>
-            </ul>
-        </div>
-        {% endif %}
-        {% if is_granted('ROLE_CONCEPTEUR') %}
-        <nav class="navbar navbar-expand-md navbar-dark loginHeader">
-            <div class="navbar-collapse collapse width-100 order-1 order-md-0 dual-collapse2">
-                <ul class="navbar-nav mr-auto">
+                {% if is_granted('ROLE_CONCEPTEUR') %}
                     <li class="nav-item active">
                         <a class="switch" href="{{ path('concepteur_home') }}">Mode Concepteur</a>
                     </li>
-                </ul>
-            </div>
-            {% else %}
-            {#                <nav class="navbar navbar-expand-md navbar-dark loginHeader loginHeaderPlayer">#}
-            <nav class="loginHeader loginHeaderPlayer">
                 {% endif %}
-                <div class="mx-auto order-0">
-                    <h1 class="TitrePage"><a href="{{ path('home')}}">{{ titre }}</a></h1>
-                    {% if is_granted('ROLE_CONCEPTEUR')%}
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+            </ul>
+        </div>
+    {% else %}
+    {#                <nav class="navbar navbar-expand-md navbar-dark loginHeader loginHeaderPlayer">#}
+    <nav class="loginHeader loginHeaderPlayer">
+    {% endif %}
+        <div class="mx-auto order-0">
+            <h1 class="TitrePage"><a href="{{ path('home')}}">{{ titre }}</a></h1>
+            {% if is_granted('ROLE_CONCEPTEUR')%}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            {% elseif is_granted('ROLE_ADMIN')%}
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            {% endif %}
+        </div>
+        {% if not is_granted('ROLE_CONCEPTEUR')%}
+        {% if not is_granted('ROLE_ADMIN')%}
+        <div class="navbar">
+        {% endif %}
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCEPTEUR')%}
+        <div class="navbar-collapse collapse width-100 order-3 dual-collapse2">
+        {% endif %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    {% if app.user %}
+                        <div>
+                            <h3>{{ app.user.username }}</h3> <a class="switch btn-danger" href="{{ path('app_logout') }}">D&#xE9;connexion</a>
+                        </div>
+                    {% else %}
+                        <div>
+                            <a href="/login">Connexion</a>
+                            <a href="/register">Inscription</a>
+                        </div>
                     {% endif %}
-                    {% if is_granted('ROLE_ADMIN')%}
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    {% endif %}
-                </div>
-                {% if not is_granted('ROLE_CONCEPTEUR')%}
-                {% if not is_granted('ROLE_ADMIN')%}
-                <div class="navbar">
-                    {% endif %}
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_CONCEPTEUR')%}
-                    <div class="navbar-collapse collapse width-100 order-3 dual-collapse2">
-                        {% endif %}
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                {% if app.user %}
-                                    <div>
-                                        <h3>{{ app.user.username }}</h3> <a class="switch btn-danger" href="{{ path('app_logout') }}">D&#xE9;connexion</a>
-                                    </div>
-                                {% else %}
-                                    <div>
-                                        <a href="/login">Connexion</a>
-                                        <a href="/register">Inscription</a>
-                                    </div>
-                                {% endif %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </nav>
+                </li>
+            </ul>
+        </div>
     </nav>
 </header>
+<div class="border border-secondary" style="margin: 1%; border-radius: 4px; padding: 8px">
 {% block main %}
 {% endblock %}
+</div>
 <footer>
     <ul id="ulFooter">
         {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == "/joueur" %}
